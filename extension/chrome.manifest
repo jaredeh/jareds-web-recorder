@@ -1,0 +1,4 @@
+content	jwr	chrome/content/
+skin jwr classic/1.0 chrome/skin/
+
+overlay	chrome://browser/content/browser.xul	chrome://jwr/content/browser.xul

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!--
+<?xul-overlay href="chrome://jwr/sqlite/chrome/content/overlays/firefox.xul"?> 
+-->
+
+<overlay id="sqlite" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/globals.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/functions/functions.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/tokenize.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlite.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/treeDataTable.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/treeDbStructure.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/exim.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/createManager.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlitemanager.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlite.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/extManager.js"/>
+		
+</overlay>

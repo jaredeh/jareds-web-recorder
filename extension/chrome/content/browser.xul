@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://jwr/skin/jwr.css" type="text/css"?>
+
+<?xul-overlay href="chrome://jwr/content/hf.xul"?>
+<?xul-overlay href="chrome://jwr/content/sqlite.xul"?>
+
+<overlay id="jwr" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/x-javascript" src="chrome://jwr/content/util.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/jwr.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/hf_interface.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/sqlite_interface.js"/>
+
+	<!-- overlay firefox statusbar -->
+	<statusbar id="status-bar">
+		<statusbarpanel id="jwr_Statusbar" insertafter="livemark-button">
+			<label id="jwr_StatusbarLabel" />
+			<image id="jwr_StatusbarIcon" width="16" height="16"
+				mousethrough="never"
+				onclick="JWR.onClickStatusIcon(event)"
+				src="chrome://jwr/skin/status-disabled.png"
+				context="jwr_StatusContextMenu"
+				tooltiptext="Jared's Web Recorder" />
+		</statusbarpanel>
+
+		<menupopup id="jwr_StatusContextMenu" onpopupshowing="">
+			<menuitem label="Save" />
+			<menuseparator/>
+			<menuitem label="Save As" />
+		</menupopup>
+
+	</statusbar>
+
+	<menupopup id="menu_ToolsPopup">
+		<menu id="jwr_menu" 
+			class="menuitem-iconic" 
+			label="Jared's Web Recorder" 
+			insertbefore="javascriptConsole" >
+
+			<menupopup >
+				<menuitem id="jwr_menu_viewToggle" 
+					insertbefore="toggle_taskbar" 
+					label="Toggle Jared's Web Recorder" 
+					oncommand="JWR.onClickStatusIcon(event);" />
+
+				<menuseparator/>
+
+				<menuitem label="Save" command="" />
+
+				<menuitem label="Save As" command="" />
+
+				<menuseparator/>
+
+				<menuitem label="new database" oncommand="JWR_SQL.newDatabase();" />
+
+			</menupopup>
+		</menu>
+	</menupopup>
+
+</overlay>
