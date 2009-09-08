@@ -1,4 +1,9 @@
 content	jwr	chrome/content/
+content	jwr	chrome/content/XMLPrettyPrint.xsl contentaccessible=yes
 skin jwr classic/1.0 chrome/skin/
+
+content jwr chrome/content/Utils.js
+content jwr chrome/content/HttpFox.js
+content jwr chrome/content/HttpFoxTree.js
 
 overlay	chrome://browser/content/browser.xul	chrome://jwr/content/browser.xul

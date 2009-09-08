@@ -647,7 +647,7 @@ HttpFoxPreferences.prototype =
 		// Register to receive notifications of preference changes
 		this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
 			.getService(Components.interfaces.nsIPrefService)
-			.getBranch("extensions.httpfox.");
+			.getBranch("extensions.jwr.");
 		this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		this.prefs.addObserver("", this, false);
 	

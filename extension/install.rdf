@@ -11,6 +11,7 @@
 		<em:description>Jareds Web Recorder - Records web traffic into a database</em:description>
 		<em:creator>Jared Hulbert</em:creator>
 		<em:homepageURL>http://www.hulbertbrothers.com/projects/jwr/</em:homepageURL>
+		<em:optionsURL>chrome://jwr/content/HttpFoxOptions.xul</em:optionsURL>
 		<em:iconURL>chrome://jwr/skin/icon.png</em:iconURL>
 
 		<!-- Firefox -->

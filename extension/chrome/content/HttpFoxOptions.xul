@@ -7,11 +7,11 @@
  
 	<prefpane id="hf_PrefPane" label="HttpFox Options">
 		<preferences>
-			<preference id="pref_StartAtBrowserStart" name="extensions.httpfox.StartAtBrowserStart" type="bool"/>
-			<preference id="pref_AlwaysOpenDetached" name="extensions.httpfox.AlwaysOpenDetached" type="bool"/>
-			<preference id="pref_ColorRequests" name="extensions.httpfox.ColorRequests" type="bool"/>
-			<preference id="pref_ForceCaching" name="extensions.httpfox.ForceCaching" type="bool"/>
-			<preference id="pref_ShowDebugTab" name="extensions.httpfox.ShowDebugTab" type="bool"/>
+			<preference id="pref_StartAtBrowserStart" name="extensions.jwr.StartAtBrowserStart" type="bool"/>
+			<preference id="pref_AlwaysOpenDetached" name="extensions.jwr.AlwaysOpenDetached" type="bool"/>
+			<preference id="pref_ColorRequests" name="extensions.jwr.ColorRequests" type="bool"/>
+			<preference id="pref_ForceCaching" name="extensions.jwr.ForceCaching" type="bool"/>
+			<preference id="pref_ShowDebugTab" name="extensions.jwr.ShowDebugTab" type="bool"/>
 		</preferences>
 	 
 		<vbox align="left">
