@@ -3,7 +3,7 @@
 <?xul-overlay href="chrome://jwr/content/HttpFoxOverlay.xul"?>
 
 <?xml-stylesheet href="chrome://global/skin/global.css"?>
-<?xml-stylesheet href="chrome://HttpFox/skin/HttpFox.css"
+<?xml-stylesheet href="chrome://jwr/skin/HttpFox.css"
                  type="text/css"?>
 
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
