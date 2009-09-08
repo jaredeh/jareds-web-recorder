@@ -9,10 +9,11 @@ JWR_HttpFox_Interface.prototype =
 	Requests: null,
 	RequestPos: null,
 	HoldsData: null,
+	NumberRows: null,
 	
 	init: function()
 	{
-		
+		this.NumberRows = -1;
 	},
 	
 	setVariables: function()
@@ -22,25 +23,35 @@ JWR_HttpFox_Interface.prototype =
 		this.RequestPos = 0;
 	},
 	
-	cmd_hf_toggleWatching: function(e)
+	openWindow: function()
+	{
+		HttpFox.cmd_hf_detach();
+	},
+	
+	set_toggleHttpFox: function(e)
 	{
 		return HttpFox.cmd_hf_toggleWatching(e);
 	},
 	
 	getNextRequest: function()
 	{
-		if (this.Requests == null) {
+		
+		if (this.NumberRows == -1) {
 			this.setVariables();
+			this.NumberRows = HttpFox.RequestTree.rowCount;
 		}
 		
 		var val = this.RequestPos;
+		
+		dump("val: " + val + " rows: " + this.NumberRows + "\n");
+
 		this.RequestPos += 1;
 		
-		if (val >= this.Requests.length) {
-			return null;
+		if (val == this.NumberRows) {
+			return true;
 		}
-		
-		return this.Requests[val];
+		HttpFox.RequestTree.setCurrent(val);
+		return false;
 	},
 	
 	getColumns: function(request)
@@ -66,8 +77,6 @@ JWR_HttpFox_Interface.prototype =
 	getRequest_Started: function(request)
 	{
 		var date = new Date(request.StartTimestamp);
-		// - this.HttpFoxService.StartTime.getTime());
-//		var data = net.decoded.utils.formatTime(date);
 		return date.getTime();
 	},
 	
@@ -95,58 +104,12 @@ JWR_HttpFox_Interface.prototype =
 	
 	getRequest_Result: function(request)
 	{
-		/*
-		if (request.IsAborted)
-		{
-			return "(Aborted)";
-		}
-		
-		if (request.isError())
-		{
-			return "(Error)";
-		}
-	
-		if (request.IsFromCache && (request.ResponseStatus != 304))
-		{
-			return "(Cache)";
-		}
-		
-		if (!request.HasReceivedResponseHeaders && !request.IsFinal)
-		{
-			return "*";
-		}	
-		*/
 		var data = request.ResponseStatus;
 		return escape(data);
 	},
 	
 	getRequest_Type: function(request)
 	{
-		/*
-		if (request.hasErrorCode())
-		{
-			if (request.ContentType)
-			{
-				return request.ContentType + " (" + net.decoded.utils.nsResultErrors[request.Status.toString(16)] + ")";
-			}
-			
-			return net.decoded.utils.nsResultErrors[request.Status.toString(16)];
-		}
-		
-		if (!request.HasReceivedResponseHeaders && !request.IsFromCache && !request.IsFinal)
-		{
-			return "*";
-		}
-		
-		if (request.isRedirect())
-		{
-			if (request.ResponseHeaders && request.ResponseHeaders["Location"])
-			{
-				return "Redirect to: " + request.ResponseHeaders["Location"];	
-			}
-			return "Redirect (cached)";
-		}
-		*/
 		var data = request.ContentType;
 		return escape(data);
 	},
@@ -191,11 +154,17 @@ JWR_HttpFox_Interface.prototype =
 	
 	getRequest_Content: function(request)
 	{
-		
 		var data = request.Content;
 		return escape(data);
 	},
 	
+	getData: function()
+	{
+		var currentRequest = HttpFox.RequestTree.getCurrent();
+		currentRequest.startGetRawContent(HttpFox);
+	},
+	
+/*
 	doLoad: function(request,callback)
 	{
 		var ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
@@ -249,7 +218,9 @@ JWR_HttpFox_Interface.prototype =
 			return;
 		}
 	},
+*/
 }
+
 
 function JWR_Listen(callback)
 {

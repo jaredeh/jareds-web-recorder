@@ -9,7 +9,6 @@ function JWR_SQLite_Interface()
 
 JWR_SQLite_Interface.prototype =
 {
-	
 	currentDatabase: null,
 	doSaveState: null,
 	copyDataState: null,
@@ -102,7 +101,7 @@ JWR_SQLite_Interface.prototype =
 	
 	doSaveDatabase: function()
 	{
-		//alert("doSaveDatabase: " + this.doSaveState);
+		dump("doSaveDatabase: " + this.doSaveState + "\n");
 		
 		var val = this.doSaveState;
 		this.doSaveState += 1;
@@ -136,22 +135,24 @@ JWR_SQLite_Interface.prototype =
 	{
 		this.copyDataState += 1;
 		
-		//alert("copyData: " + this.copyDataState);
+		dump("copyData: " + this.copyDataState + "\n");
 		
 		switch(this.copyDataState)
 		{
 		case 1:
-			this.currentRequest = JWR_HF.getNextRequest();
-			if (this.currentRequest == null) {
+			if (JWR_HF.getNextRequest()) {
 				this.copyDataState = 0;
 				return eval(callback);
 			}
 			break;
 		case 2:
-			JWR_HF.doLoad(this.currentRequest,'JWR_SQL.copyData("' + callback + '");');
+//			JWR_HF.doLoad(this.currentRequest,'JWR_SQL.copyData("' + callback + '");');
+//			return;
+			JWR_HF.getData();
+			window.setTimeout('JWR_SQL.copyData("' + callback + '");',100);
 			return;
 		case 3:
-			var data = JWR_HF.getColumns(this.currentRequest);
+			var data = JWR_HF.getColumns(HttpFox.RequestTree.getCurrent());
 			var column_string = '';
 			var values_string = '';
 			var i = 0;
@@ -168,9 +169,12 @@ JWR_SQLite_Interface.prototype =
 			Database.dataInsert("requests",column_string,values_string);
 			break;
 		case 4:
-			this.copyDataState = 0;
 			Database.commitQueue('JWR_SQL.copyData("' + callback + '");');
 			return;
+		case 5:
+			Database.clearQueue();
+			this.copyDataState = 0;
+			break;
 		default:
 			this.copyDataState = 0;
 			eval(callback);

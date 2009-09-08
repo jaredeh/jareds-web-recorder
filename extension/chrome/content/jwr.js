@@ -27,16 +27,26 @@ JaredWebRecorder.prototype =
 	
 	onClickStatusIcon: function()
 	{
-		this.toggle_StatusbarStatus();
-		this.set_StatusbarIcon();
-		this.set_toggleHttpFox();
+		if(this.toggle_StatusbarStatus()) {
+			return this.turnRecorderOn();
+		}
+		return this.turnRecorderOff();
 	},
 	
-	set_toggleHttpFox: function()
+	turnRecorderOn: function()
 	{
-		JWR_HF.cmd_hf_toggleWatching();
+		this.set_StatusbarIcon();
+		JWR_HF.set_toggleHttpFox();
 	},
 	
+	turnRecorderOff: function()
+	{
+		this.set_StatusbarIcon();
+		JWR_HF.set_toggleHttpFox();
+		//JWR_HF.openWindow();
+		this.saveDatabase();
+	},
+
 	set_StatusbarIcon: function()
 	{
 		if (this.StatusbarStatus == true)
@@ -49,13 +59,22 @@ JaredWebRecorder.prototype =
 
 	toggle_StatusbarStatus: function()
 	{
-		if (this.StatusbarStatus == true)
-		{
+		if (this.StatusbarStatus == true) {
 			this.StatusbarStatus = false;
-			return;
+		} else {
+			this.StatusbarStatus = true;
 		}
-
-		this.StatusbarStatus = true;
+		return this.StatusbarStatus;
+	},
+	
+	saveDatabase: function()
+	{
+		JWR_SQL.saveDatabase();
+	},
+	
+	saveAsDatabase: function()
+	{
+		JWR_SQL.saveAsDatabase();
 	},
 	
 }

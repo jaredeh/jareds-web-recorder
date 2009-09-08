@@ -12,6 +12,12 @@
 	<script type="application/x-javascript" src="chrome://jwr/content/database.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/sqlite_interface.js"/>
 
+	<commandset id="mainCommandSet">
+		<command id="cmd_jwr_onClickStatusIcon" oncommand="JWR.onClickStatusIcon(event);"/>
+		<command id="cmd_jwr_saveDatabase" oncommand="JWR.saveDatabase();"/>
+		<command id="cmd_jwr_saveAsDatabase" oncommand="JWR.saveAsDatabase();"/>
+	</commandset>
+
 	<!-- overlay firefox statusbar -->
 	<statusbar id="status-bar">
 		<statusbarpanel id="jwr_Statusbar" insertafter="livemark-button">
@@ -24,9 +30,9 @@
 				tooltiptext="Jared's Web Recorder" />
 		</statusbarpanel>
 
-		<menupopup id="jwr_StatusContextMenu" onpopupshowing="">
-			<menuitem label="Save" oncommand="JWR_SQL.saveDatabase();" />
-			<menuitem label="Save As" oncommand="JWR_SQL.saveAsDatabase();" />
+		<menupopup id="jwr_StatusContextMenu">
+			<menuitem label="Save" command="cmd_jwr_saveDatabase" />
+			<menuitem label="Save As" command="cmd_jwr_saveAsDatabase" />
 		</menupopup>
 
 	</statusbar>
@@ -38,15 +44,10 @@
 			insertbefore="javascriptConsole" >
 
 			<menupopup >
-				<menuitem id="jwr_menu_viewToggle" 
-					insertbefore="toggle_taskbar" 
-					label="Toggle Jared's Web Recorder" 
-					oncommand="JWR.onClickStatusIcon(event);" />
-
+				<menuitem label="Toggle Jared's Web Recorder" command="cmd_jwr_onClickStatusIcon" />
 				<menuseparator/>
-
-				<menuitem label="Save" oncommand="JWR_SQL.saveDatabase();" />
-				<menuitem label="Save As" oncommand="JWR_SQL.saveAsDatabase();" />
+				<menuitem label="Save" command="cmd_jwr_saveDatabase" />
+				<menuitem label="Save As" command="cmd_jwr_saveAsDatabase" />
 
 			</menupopup>
 		</menu>
