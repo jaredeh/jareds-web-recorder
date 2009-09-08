@@ -91,7 +91,7 @@ HttpFoxController.prototype =
 		
 		// default xsl from firefox
 		//xslDoc.load("chrome://global/content/xml/XMLPrettyPrint.xsl");
-		var test = xslDoc.load("chrome://httpfox/content/XMLPrettyPrint.xsl");
+		var test = xslDoc.load("chrome://jwr/content/XMLPrettyPrint.xsl");
 		
 		var processor = new XSLTProcessor();
 		processor.importStylesheet(xslDoc);
@@ -1217,12 +1217,12 @@ HttpFoxController.prototype =
 	//G
 	OpenInWindow: function()
 	{
-		net.decoded.utils.openWindow("HttpFox", "chrome://httpfox/content/HttpFoxWindow.xul", "", null);
+		net.decoded.utils.openWindow("HttpFox", "chrome://jwr/content/HttpFoxWindow.xul", "", null);
 	},
 	
 	OpenOptions: function()
 	{
-		openDialog("chrome://httpfox/content/HttpFoxOptions.xul", "HttpFox Options", "", null);
+		openDialog("chrome://jwr/content/HttpFoxOptions.xul", "HttpFox Options", "", null);
 	}
 
 }

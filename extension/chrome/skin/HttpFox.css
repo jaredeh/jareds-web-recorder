@@ -95,11 +95,11 @@
     background: -moz-field;
     font: icon;
     font-size: 11px;
-    list-style-image: url(chrome://httpfox/skin/search.png);
+    list-style-image: url(chrome://jwr/skin/search.png);
 }
 
 #hf_QuickFilterImage {
-	list-style-image: url(chrome://httpfox/skin/search.png);
+	list-style-image: url(chrome://jwr/skin/search.png);
 }
 
 #hf_Separator {
@@ -111,7 +111,7 @@
     padding: 0 !important;
     border: none !important;
     background: transparent !important;
-	list-style-image: url(chrome://httpfox/skin/close.png);
+	list-style-image: url(chrome://jwr/skin/close.png);
 	-moz-image-region: rect(0px, 32px, 16px, 16px);
 }
 
@@ -120,35 +120,35 @@
     padding: 0 !important;
     border: none !important;
     background: transparent !important;
-	list-style-image: url(chrome://httpfox/skin/close.png);
+	list-style-image: url(chrome://jwr/skin/close.png);
 	-moz-image-region: rect(0px, 16px, 16px, 0px);
 	-moz-box-align: end;
 }
 
 #hf_TopBarButton_Start:hover {
-	list-style-image: url(chrome://httpfox/skin/go.png);
+	list-style-image: url(chrome://jwr/skin/go.png);
 	-moz-image-region: rect(4px, 45px, 18px, 30px);
 }
 
 #hf_TopBarButton_Start[disabled="true"] {
-	list-style-image: url(chrome://httpfox/skin/go.png);
+	list-style-image: url(chrome://jwr/skin/go.png);
 	-moz-image-region: rect(4px, 70px, 18px, 55px);
 }
 
 #hf_TopBarButton_Start {
-	list-style-image: url(chrome://httpfox/skin/go.png);
+	list-style-image: url(chrome://jwr/skin/go.png);
 	-moz-image-region: rect(4px, 20px, 18px, 5px);
 }
 
 #hf_TopBarButton_Detach {
-	list-style-image: url(chrome://httpfox/skin/application_double_grey.png);
+	list-style-image: url(chrome://jwr/skin/application_double_grey.png);
 	-moz-appearance: none;
     padding: 0 !important;
     border: none !important;
     background: transparent !important;
 }
 #hf_TopBarButton_Detach:hover {
-	list-style-image: url(chrome://httpfox/skin/application_double.png);
+	list-style-image: url(chrome://jwr/skin/application_double.png);
 	-moz-appearance: none;
     padding: 0 !important;
     border: none !important;
@@ -157,27 +157,27 @@
 
 
 #hf_TopBarButton_Stop:hover {
-	list-style-image: url(chrome://httpfox/skin/toolbar.png);
+	list-style-image: url(chrome://jwr/skin/toolbar.png);
 	-moz-image-region: rect(16px, 48px, 31px, 32px);
 }
 
 #hf_TopBarButton_Stop[disabled="true"] {
-	list-style-image: url(chrome://httpfox/skin/toolbar.png);
+	list-style-image: url(chrome://jwr/skin/toolbar.png);
 	-moz-image-region: rect(32px, 48px, 47px, 32px);
 }
 
 #hf_TopBarButton_Stop {
-	list-style-image: url(chrome://httpfox/skin/toolbar.png);
+	list-style-image: url(chrome://jwr/skin/toolbar.png);
 	-moz-image-region: rect(0px, 48px, 15px, 32px);
 }
 
 #hf_TopBarButton_Clear {
-	list-style-image: url(chrome://httpfox/skin/clear.png);
+	list-style-image: url(chrome://jwr/skin/clear.png);
 	/*-moz-image-region: rect(4px, 20px, 18px, 5px);*/
 }
 
 #hf_TopBarButton_HttpFox {
-	list-style-image: url(chrome://httpfox/skin/logo_s.png);
+	list-style-image: url(chrome://jwr/skin/logo_s.png);
 }
 
 treechildren::-moz-tree-row(hf_currentRow) {
@@ -226,13 +226,13 @@ treechildren::-moz-tree-cell-text(hf_OK) {
 }
 
 #hf_StatusLogoImage {
-	list-style-image: url(chrome://httpfox/skin/globe16.png);
+	list-style-image: url(chrome://jwr/skin/globe16.png);
 }
 
 
 #hf_PanelNormal {
-	-moz-binding: url("chrome://httpfox/content/bindings.xml#startup");
+	-moz-binding: url("chrome://jwr/content/bindings.xml#startup");
 }
 #hf_Window {
-	-moz-binding: url("chrome://httpfox/content/bindings.xml#windowStartup");
+	-moz-binding: url("chrome://jwr/content/bindings.xml#windowStartup");
 }

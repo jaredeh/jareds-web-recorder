@@ -70,7 +70,7 @@ td {
   -moz-user-select: none;
   vertical-align: top;
   text-align: center;
-  background-image: url(chrome://httpfox/skin/nodeOpen.png);
+  background-image: url(chrome://jwr/skin/nodeOpen.png);
   background-repeat: no-repeat;
   background-position: 1px 2px;
 }
@@ -80,7 +80,7 @@ td {
   -moz-user-select: none;
   vertical-align: top;
   text-align: center;
-  background-image: url(chrome://httpfox/skin/nodeClosed.png);
+  background-image: url(chrome://jwr/skin/nodeClosed.png);
   background-repeat: no-repeat;
   background-position: 1px 2px;
 }
