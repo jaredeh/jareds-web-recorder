@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="jaredswebrecorder@hulbertbrothers.com"
+                   em:name="jwr"
+                   em:version="0.2.2"
+                   em:creator="Jared Hulbert"
+                   em:description="Jareds Web Recorder - Records web traffic into a database"
+                   em:homepageURL="http://www.hulbertbrothers.com/projects/jwr/"
+                   em:iconURL="chrome://jwr/skin/icon.png"
+                   em:optionsURL="chrome://jwr/content/HttpFoxOptions.xul">
+    <em:targetApplication RDF:resource="rdf:#$9Ig8k2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$9Ig8k2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.5"
+                   em:maxVersion="3.5.*" />
+</RDF:RDF>
