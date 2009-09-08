@@ -280,7 +280,7 @@ HttpFoxController.prototype =
 		this.closePanel();
 		
 		// command checked
-		document.getElementById("cmd_hf_togglePanel").setAttribute("checked", true);
+		//document.getElementById("cmd_hf_togglePanel").setAttribute("checked", true);
 	},
 	
 	switchToDetachedWindowIfOpened: function()

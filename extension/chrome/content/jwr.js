@@ -36,6 +36,7 @@ JaredWebRecorder.prototype =
 	turnRecorderOn: function()
 	{
 		this.set_StatusbarIcon();
+		JWR_HF.openWindow();
 		JWR_HF.set_toggleHttpFox();
 	},
 	
@@ -43,8 +44,8 @@ JaredWebRecorder.prototype =
 	{
 		this.set_StatusbarIcon();
 		JWR_HF.set_toggleHttpFox();
-		//JWR_HF.openWindow();
 		this.saveDatabase();
+		JWR_HF.closeWindow();
 	},
 
 	set_StatusbarIcon: function()

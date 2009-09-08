@@ -28,6 +28,11 @@ JWR_HttpFox_Interface.prototype =
 		HttpFox.cmd_hf_detach();
 	},
 	
+	closeWindow: function()
+	{
+		HttpFox.cmd_hf_close();
+	},	
+	
 	set_toggleHttpFox: function(e)
 	{
 		return HttpFox.cmd_hf_toggleWatching(e);
