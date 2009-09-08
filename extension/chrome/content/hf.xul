@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 
-<overlay id="hf" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="hf_overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://httpfox/content/HttpFox.js"/>
+
+	<menupopup>
+		<menulist id="hf_test" />
+	</menupopup>
+
 </overlay>

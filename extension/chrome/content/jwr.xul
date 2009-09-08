@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://jwr/skin/jwr.css" type="text/css"?>
 
-<overlay id="jwr" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="jwr_overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<menupopup>
+		<menulist id="jwr_test" />
+	</menupopup>
 
 </overlay>

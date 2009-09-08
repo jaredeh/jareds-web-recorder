@@ -30,7 +30,6 @@ JaredWebRecorder.prototype =
 		this.toggle_StatusbarStatus();
 		this.set_StatusbarIcon();
 		this.set_toggleHttpFox();
-		JWR_SQL.openWindow();
 	},
 	
 	set_toggleHttpFox: function()

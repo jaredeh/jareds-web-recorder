@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://jwr/skin/jwr.css" type="text/css"?>
 
+<?xul-overlay href="chrome://jwr/content/jwr.xul"?> 
 <?xul-overlay href="chrome://jwr/content/hf.xul"?>
 <?xul-overlay href="chrome://jwr/content/sqlite.xul"?>
 
@@ -9,6 +9,7 @@
 	<script type="application/x-javascript" src="chrome://jwr/content/util.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/jwr.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/hf_interface.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/database.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/sqlite_interface.js"/>
 
 	<!-- overlay firefox statusbar -->
@@ -24,9 +25,8 @@
 		</statusbarpanel>
 
 		<menupopup id="jwr_StatusContextMenu" onpopupshowing="">
-			<menuitem label="Save" />
-			<menuseparator/>
-			<menuitem label="Save As" />
+			<menuitem label="Save" oncommand="JWR_SQL.saveDatabase();" />
+			<menuitem label="Save As" oncommand="JWR_SQL.saveAsDatabase();" />
 		</menupopup>
 
 	</statusbar>
@@ -45,13 +45,8 @@
 
 				<menuseparator/>
 
-				<menuitem label="Save" command="" />
-
-				<menuitem label="Save As" command="" />
-
-				<menuseparator/>
-
-				<menuitem label="new database" oncommand="JWR_SQL.newDatabase();" />
+				<menuitem label="Save" oncommand="JWR_SQL.saveDatabase();" />
+				<menuitem label="Save As" oncommand="JWR_SQL.saveAsDatabase();" />
 
 			</menupopup>
 		</menu>

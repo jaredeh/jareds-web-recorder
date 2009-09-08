@@ -1,21 +1,19 @@
 <?xml version="1.0"?>
 
-<!--
-<?xul-overlay href="chrome://jwr/sqlite/chrome/content/overlays/firefox.xul"?> 
--->
+<window  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="Jared's Web Recorder">
 
-<overlay id="sqlite" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/globals.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/functions/functions.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/tokenize.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/preferences.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlite.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/treeDataTable.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/treeDbStructure.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/exim.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/createManager.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlitemanager.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/sqlite.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/sqlite/chrome/content/extManager.js"/>
-		
-</overlay>
+	<script type="application/x-javascript" src="chrome://jwr/content/sqlite.js"/>
+	<hbox>
+		<vbox>
+			<label id="jwr_db_status"/>
+		</vbox>
+		<vbox>
+			<textbox id="jwr_db_item">
+			</textbox>
+		</vbox>
+		<vbox>
+			<textbox id="jwr_db_action">
+			</textbox>
+		</vbox>
+	</hbox>
+</window>
