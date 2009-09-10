@@ -1217,7 +1217,7 @@ HttpFoxController.prototype =
 	//G
 	OpenInWindow: function()
 	{
-		net.decoded.utils.openWindow("HttpFox", "chrome://jwr/content/HttpFoxWindow.xul", "", null);
+		net.decoded.utils.openWindow("Jareds Web Recorder", "chrome://jwr/content/HttpFoxWindow.xul", "", null);
 	},
 	
 	OpenOptions: function()

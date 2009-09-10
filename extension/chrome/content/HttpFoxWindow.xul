@@ -18,6 +18,13 @@
 	<script type="application/x-javascript" src="chrome://jwr/content/HttpFox.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/HttpFoxTree.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/Utils.js"/>
+	
+	<script type="application/x-javascript" src="chrome://jwr/content/util.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/chrome.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/jwr.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/hf_interface.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/database.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/sqlite_interface.js"/>
 	<!-- scripts end -->
 
 	<vbox id="appcontent" flex="1"> <!-- overlay firefox content window -->

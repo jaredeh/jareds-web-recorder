@@ -1,4 +1,3 @@
-var Database = new DatabaseHandler();
 var JWR_column_names = new Array("Started","Time","Sent","Received","Method","Result","Type","URL","Request_Header","Response_Header","POST_Data","Content");
 
 
@@ -13,6 +12,7 @@ JWR_SQLite_Interface.prototype =
 	doSaveState: null,
 	copyDataState: null,
 	currentRequest: null,
+	Chrome: null,
 	
 	init: function()
 	{
@@ -20,11 +20,11 @@ JWR_SQLite_Interface.prototype =
 		JWR_listen(window, "unload", JWR_hitch(this, "chromeUnload"));
 		this.doSaveState = 0;
 		this.copyDataState = 0;
+		this.Chrome = new JWR_DoChromeHandler();
 	},
 	
 	chromeLoad: function(e)
 	{
-		$$("jwr_db_status").value = "Not Connected";
 	},
 	
 	chromeUnload: function(e)
@@ -45,7 +45,8 @@ JWR_SQLite_Interface.prototype =
 			throw "openDatabase failed";
 		}
 		
-		$$("jwr_db_status").value = this.currentDatabase.path;
+		this.Chrome.DatabaseBar.update_file(this.currentDatabase.path);
+		this.Chrome.DatabaseBar.update_status("Database Open");
 	},
 	
 	getAutoNamedDatabaseFile: function()
@@ -109,22 +110,27 @@ JWR_SQLite_Interface.prototype =
 		switch(val)
 		{
 		case 1:
+			this.Chrome.DatabaseBar.update_status("Creating Database");
 			this.configureDatabase();
 			break;
 		case 2:
+			this.Chrome.DatabaseBar.update_status("Saving structure");
 			Database.commitQueue('JWR_SQL.doSaveDatabase();');
 			return;
 		case 3:
+			this.Chrome.DatabaseBar.update_status("Saving Data");
 			this.copyData('JWR_SQL.doSaveDatabase();');
 			return;
 		case 4:
+			this.Chrome.DatabaseBar.update_status("Closing Database");
 			Database.closeDatabase('JWR_SQL.doSaveDatabase();');
 			break;
 		case 5:
 			this.currentDatabase = null;
-			$$("jwr_db_status").value = "Not Connected";
+			this.Chrome.DatabaseBar.update_status("Saved");
 			break;
 		default:
+			this.doSaveState = 0;
 			return;
 		}
 		this.doSaveDatabase();
@@ -144,6 +150,8 @@ JWR_SQLite_Interface.prototype =
 				this.copyDataState = 0;
 				return eval(callback);
 			}
+			var msg = (JWR_HF.RequestPos/JWR_HF.NumberRows)*100 + "% done, row " + JWR_HF.RequestPos +  " of " + JWR_HF.NumberRows;
+			this.Chrome.DatabaseBar.update_progress(msg);
 			break;
 		case 2:
 //			JWR_HF.doLoad(this.currentRequest,'JWR_SQL.copyData("' + callback + '");');
@@ -207,51 +215,3 @@ JWR_SQLite_Interface.prototype =
 }
 
 var JWR_SQL = new JWR_SQLite_Interface();
-
-/*
-
-dbfile = Components.classes["@mozilla.org/file/directory_service;1"]
-			.getService(Components.interfaces.nsIProperties)
-			.get("ProfD", Components.interfaces.nsIFile);
-storageService = Components.classes["@mozilla.org/storage/service;1"]
-			.getService(Components.interfaces.mozIStorageService);
-
-file.append("my_db_file_name.sqlite");
-
-var storageService = Components.classes["@mozilla.org/storage/service;1"]
-                        .getService(Components.interfaces.mozIStorageService);
-var mDBConn = storageService.openDatabase(file); // Will also create the file if it does not exist
-
-
-dbConn.executeSimpleSQL("CREATE TEMP TABLE table_name (column_name INTEGER)");
-
-
-var statement = dbConn.createStatement("SELECT * FROM table_name WHERE column_name = :parameter");  
-
-var statement = dbConn.createStatement("SELECT * FROM table_name WHERE id = :row_id");
-statement.params.row_id = 1234;
-
-
-
-
-statement.executeAsync({
-  handleResult: function(aResultSet) {
-    for (let row = aResultSet.getNextRow();
-         row;
-         row = aResultSet.getNextRow()) {
-
-      let value = row.getResultByName("column_name");
-    }
-  },
-
-  handleError: function(aError) {
-    print("Error: " + aError.message);
-  },
-
-  handleCompletion: function(aReason) {
-    if (aReason != Components.interfaces.mozIStorageStatementCallback.REASON_FINISHED)
-      print("Query canceled or aborted!");
-  }
-});
-
- */

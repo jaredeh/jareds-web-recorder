@@ -8,12 +8,14 @@
 		<command id="cmd_hf_startWatching" oncommand="HttpFox.cmd_hf_startWatching();"/>
 		<command id="cmd_hf_stopWatching" oncommand="HttpFox.cmd_hf_stopWatching();" disabled="true"/>
 		<command id="cmd_hf_toggleWatching" oncommand="HttpFox.cmd_hf_toggleWatching();"/>
-		<command id="cmd_hf_clear" oncommand="HttpFox.cmd_hf_clear();"/>
+		<command id="cmd_hf_clear" oncommand="JWR.clearBuffers();"/>
 		<command id="cmd_hf_togglePanel" oncommand="HttpFox.cmd_hf_togglePanel();"/>
 		<command id="cmd_hf_quickFilterChanged" oncommand="HttpFox.cmd_hf_quickFilterChanged();"/>
 		<command id="cmd_hf_close" oncommand="HttpFox.cmd_hf_close();"/>
 		<command id="cmd_hf_showAbout" oncommand="HttpFox.cmd_hf_showAbout();"/>
 		<command id="cmd_hf_detach" oncommand="HttpFox.cmd_hf_detach();"/>
+		<command id="cmd_hf_saveData" oncommand="JWR.doSaveData();"/>
+		<command id="cmd_hf_saveAsData" oncommand="JWR.doSaveAsData();"/>
     </commandset>
     
 	<keyset id="mainKeyset">
@@ -29,7 +31,7 @@
 			<!--<toolbar id="hf_TopBar" align="center" flex="0" style="-moz-border-top-colors: ThreeDLightShadow ThreeDLightShadow; border-bottom-width: 0px; border-left-width: 0px; border-top-width: 1px; border-right-width: 1px;">-->
 				<toolbar id="hf_TopBar" align="center" flex="0">
 					<toolbarbutton id="hf_TopBarButton_Start" label="Start"
-						tooltiptext="Start watching" command="cmd_hf_startWatching" />
+						tooltiptext="Start recording" command="cmd_hf_startWatching" />
 	
 					<toolbarbutton id="hf_TopBarButton_Stop" label="Stop" 
 						tooltiptext="Stop watching" command="cmd_hf_stopWatching" />
@@ -52,6 +54,23 @@
 					<toolbarbutton id="hf_TopBarButton_Close" 
 						tooltiptext="Close" command="cmd_hf_close" align="right"/>
 			    </toolbar>
+				<toolbar id="jwr_toolbar" align="center" flex="0">
+					<toolbarbutton id="hf_TopBarButton_Save" label="Save" 
+						tooltiptext="Save Data" command="cmd_hf_saveData" />
+
+					<toolbarbutton id="hf_TopBarButton_SaveAs" label="SaveAs" 
+						tooltiptext="Save Data As ..." command="cmd_hf_saveAsData" />
+
+					<vbox>
+						<label id="jwr_db_status"/>
+					</vbox>
+					<vbox>
+						<label id="jwr_db_progress"/>
+					</vbox>
+					<vbox>
+						<label id="jwr_db_file"/>
+					</vbox>
+				</toolbar>
 		    </toolbox>
 			
 		<!--<hbox flex="1">-->

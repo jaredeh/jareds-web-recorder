@@ -38,6 +38,22 @@ JWR_HttpFox_Interface.prototype =
 		return HttpFox.cmd_hf_toggleWatching(e);
 	},
 	
+	cmd_hf_startWatching: function(e)
+	{
+		return HttpFox.cmd_hf_startWatching(e);
+	},
+
+	cmd_hf_stopWatching: function(e)
+	{
+		return HttpFox.cmd_hf_stopWatching(e);
+	},
+	
+	cmd_hf_clear: function(e)
+	{
+		this.init();
+		return HttpFox.cmd_hf_clear(e);
+	},
+	
 	getNextRequest: function()
 	{
 		
@@ -169,61 +185,6 @@ JWR_HttpFox_Interface.prototype =
 		currentRequest.startGetRawContent(HttpFox);
 	},
 	
-/*
-	doLoad: function(request,callback)
-	{
-		var ioService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-		var url = request.Url;
-		var myPostData = request.PostData;
-		var ckey = request.CacheKey;
-		
-		var channel;
-		try {
-			channel = ioService.newChannel(url, null, null);
-			channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_FROM_CACHE;
-			channel.loadFlags |= Components.interfaces.nsIChannel.LOAD_TARGETED;
-			channel.loadFlags |= Components.interfaces.nsIRequest.VALIDATE_NEVER;
-			channel.owner = new JWR_ResponseLoaderFlagger();
-		}
-		catch(ex){
-			alert(ex);
-			return;
-		}
-		
-		if (channel instanceof Components.interfaces.nsIUploadChannel) {
-			if (myPostData) {
-				var inputStream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
-				inputStream.setData(myPostData, myPostData.length);
-				
-				var postStream = inputStream.QueryInterface(Components.interfaces.nsISeekableStream);
-				postStream.seek(0, 0);
-				
-				var uploadChannel = channel.QueryInterface(Components.interfaces.nsIUploadChannel);
-				uploadChannel.setUploadStream(postStream, "application/x-www-form-urlencoded", -1);
-				
-				var cachingChannel = channel.QueryInterface(Components.interfaces.nsIHttpChannel);
-				var httpChannel = channel.QueryInterface(Components.interfaces.nsIHttpChannel);
-				httpChannel.requestMethod = "POST";
-			}
-		}
-		
-		if (channel instanceof Components.interfaces.nsICachingChannel) {
-			var cacheChannel = channel.QueryInterface(Components.interfaces.nsICachingChannel);
-			cacheChannel.loadFlags |= Components.interfaces.nsICachingChannel.LOAD_ONLY_FROM_CACHE;
-			cacheChannel.loadFlags |= Components.interfaces.nsIRequest.VALIDATE_NEVER;
-			cacheChannel.cacheKey = ckey;
-		}
-		
-		try {
-			var listener = new JWR_Listen(request,callback);
-			channel.asyncOpen(listener, null);
-		}
-		catch(ex) {
-			alert(ex);
-			return;
-		}
-	},
-*/
 }
 
 
@@ -276,103 +237,3 @@ JWR_ResponseLoaderFlagger.prototype =
 }
 
 var JWR_HF = new JWR_HttpFox_Interface();
-
-
-/*
-
-
-var Ci = Components.interfaces;
-var Cc = Components.classes;
-
-var foo = {};
-foo.bar = "new property";
-foo.baz = 3;
-
-var nativeJSON = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
-var JSONfoo = nativeJSON.encode(foo);
-
-
-HttpFox: null,
-HttpChannel: null,
-Context: null,
-RequestLog: null,
-EventSource: null,
-EventSourceData: null,
-MasterIndex: null,
-HttpFoxRequestEventSink: null,
-
-// custom request properties
-StartTimestamp: null,
-ResponseStartTimestamp: null,
-EndTimestamp: null,
-Content: null,
-ContentStatus: null,
-BytesLoaded: 0,
-BytesLoadedTotal: 0,
-BytesSent: 0,
-BytesSentTotal: 0,
-ResponseHeadersSize: 0,
-RequestHeadersSize: 0,
-
-// request states
-IsFinished: false,
-IsFinal: false, // last scan and cleanup was done
-IsAborted: false,
-IsLoadingBody: false,
-IsSending: false,
-HasReceivedResponseHeaders: false,
-IsRedirect: false,
-HasErrorCode: false,
-IsError: false,
-IsFromCache: false,
-HasCacheInfo: false,
-//IsContentAvailable: false,
-HasPostData: false, 
-HasQueryStringData: false,
-HasCookieData: false,
-
-// request/response data
-RequestHeaders: null,
-ResponseHeaders: null,
-PostDataHeaders: null,
-PostData: null,
-PostDataParameters: null,
-PostDataMIMEParts: null,
-PostDataMIMEBoundary: null,
-IsPostDataMIME: null,
-PostDataContentLength: null,
-IsPostDataTooBig: false,
-QueryString: null,
-QueryStringParameters: null,
-CookiesSent: null,
-CookiesReceived: null,
-IsBackground: false,
-
-// httpchannel-, request properties
-Status: null,
-Url: null,
-URIPath: null,
-URIScheme: null,
-RequestProtocolVersion: null,
-RequestMethod: null,
-ResponseProtocolVersion: null,
-ResponseStatus: null,
-ResponseStatusText: null,
-ContentType: null,
-ContentCharset: null,
-ContentLength: null,
-LoadFlags: null,
-Name: null,
-RequestSucceeded: null,
-IsNoStoreResponse: null,
-IsNoCacheResponse: null,
-IsFromCache: null,
-CacheToken: null,
-CacheToken_key: null,
-CacheKey: null,
-CacheAsFile: null,
-CacheFile: null,
-Priority: null,
-EntityId: null,
-
-*/

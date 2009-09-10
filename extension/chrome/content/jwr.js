@@ -5,20 +5,18 @@ function JaredWebRecorder()
 
 JaredWebRecorder.prototype =
 {
-	StatusbarStatus: null,
-	StatusbarIcon: null,
+	Chrome: null,
 	
 	init: function()
 	{
-		this.StatusbarStatus = new Boolean();
 		JWR_listen(window, "load", JWR_hitch(this, "chromeLoad"));
 		JWR_listen(window, "unload", JWR_hitch(this, "chromeUnload"));
+		this.Chrome = new JWR_DoChromeHandler();
 	},
 	
 	chromeLoad: function(e)
 	{
-		this.StatusbarIcon = document.getElementById("jwr_StatusbarIcon");
-		this.set_StatusbarIcon();
+		this.Chrome.StatusBar.UpdateIcon();
 	},
 
 	chromeUnload: function(e)
@@ -27,55 +25,47 @@ JaredWebRecorder.prototype =
 	
 	onClickStatusIcon: function()
 	{
-		if(this.toggle_StatusbarStatus()) {
-			return this.turnRecorderOn();
-		}
-		return this.turnRecorderOff();
-	},
-	
-	turnRecorderOn: function()
-	{
-		this.set_StatusbarIcon();
-		JWR_HF.openWindow();
-		JWR_HF.set_toggleHttpFox();
-	},
-	
-	turnRecorderOff: function()
-	{
-		this.set_StatusbarIcon();
-		JWR_HF.set_toggleHttpFox();
-		this.saveDatabase();
-		JWR_HF.closeWindow();
-	},
-
-	set_StatusbarIcon: function()
-	{
-		if (this.StatusbarStatus == true)
-		{
-			this.StatusbarIcon.src = "chrome://jwr/skin/status-enabled.png"
+		if(this.Chrome.StatusBar.ToggleIconStatus()) {
+			this.Chrome.StatusBar.UpdateIcon();
+			JWR_HF.openWindow();
+			JWR_HF.cmd_hf_startWatching();
 			return;
 		}
-		this.StatusbarIcon.src = "chrome://jwr/skin/status-disabled.png"
-	},
-
-	toggle_StatusbarStatus: function()
-	{
-		if (this.StatusbarStatus == true) {
-			this.StatusbarStatus = false;
-		} else {
-			this.StatusbarStatus = true;
-		}
-		return this.StatusbarStatus;
+		JWR_HF.cmd_hf_stopWatching();
+		JWR_SQL.saveDatabase();
+		JWR_HF.closeWindow();
+		this.Chrome.StatusBar.UpdateIcon();
+		return;
 	},
 	
-	saveDatabase: function()
+	doSaveData: function()
 	{
+		JWR_HF.cmd_hf_stopWatching();
 		JWR_SQL.saveDatabase();
 	},
 	
-	saveAsDatabase: function()
+	doSaveAsData: function()
 	{
+		JWR_HF.cmd_hf_stopWatching();
 		JWR_SQL.saveAsDatabase();
+	},
+	
+	startRecording: function()
+	{
+		JWR_HF.cmd_hf_startWatching();
+	},
+	
+	stopRecording: function()
+	{
+		JWR_HF.cmd_hf_stopWatching();
+	},
+	
+	clearBuffers: function()
+	{
+		this.Chrome.DatabaseBar.update_status("");
+		this.Chrome.DatabaseBar.update_file("");
+		this.Chrome.DatabaseBar.update_progress("");
+		JWR_HF.cmd_hf_clear();
 	},
 	
 }

@@ -106,7 +106,3 @@ function JWR_set_extension(file, ext)
 	
 	return file + "." + ext;
 }
-
-function $$(id) {
-  return document.getElementById(id);
-}

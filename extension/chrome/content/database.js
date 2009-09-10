@@ -125,3 +125,5 @@ DatabaseHandler.prototype = {
 		dump("clearQueue: " + this.statementQueue + "\n");
 	},
 }
+
+var Database = new DatabaseHandler();

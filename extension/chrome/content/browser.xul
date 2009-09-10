@@ -7,6 +7,7 @@
 <overlay id="jwr" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<script type="application/x-javascript" src="chrome://jwr/content/util.js"/>
+	<script type="application/x-javascript" src="chrome://jwr/content/chrome.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/jwr.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/hf_interface.js"/>
 	<script type="application/x-javascript" src="chrome://jwr/content/database.js"/>
@@ -14,8 +15,11 @@
 
 	<commandset id="mainCommandSet">
 		<command id="cmd_jwr_onClickStatusIcon" oncommand="JWR.onClickStatusIcon(event);"/>
-		<command id="cmd_jwr_saveDatabase" oncommand="JWR.saveDatabase();"/>
-		<command id="cmd_jwr_saveAsDatabase" oncommand="JWR.saveAsDatabase();"/>
+		<command id="cmd_jwr_start" oncommand="JWR.startRecording();"/>
+		<command id="cmd_jwr_stop" oncommand="JWR.stopRecording();"/>
+		<command id="cmd_jwr_clear" oncommand="JWR.clearBuffers();"/>
+		<command id="cmd_jwr_saveData" oncommand="JWR.doSaveData();"/>
+		<command id="cmd_jwr_saveAsData" oncommand="JWR.doSaveAsData();"/>
 	</commandset>
 
 	<!-- overlay firefox statusbar -->
@@ -31,8 +35,11 @@
 		</statusbarpanel>
 
 		<menupopup id="jwr_StatusContextMenu">
-			<menuitem label="Save" command="cmd_jwr_saveDatabase" />
-			<menuitem label="Save As" command="cmd_jwr_saveAsDatabase" />
+			<menuitem label="Start Record" command="cmd_jwr_start" />
+			<menuitem label="Stop Record" command="cmd_jwr_stop" />
+			<menuitem label="Clear" command="cmd_jwr_clear" />
+			<menuitem label="Save" command="cmd_jwr_saveData" />
+			<menuitem label="Save As" command="cmd_jwr_saveAsData" />
 		</menupopup>
 
 	</statusbar>
@@ -44,11 +51,13 @@
 			insertbefore="javascriptConsole" >
 
 			<menupopup >
-				<menuitem label="Toggle Jared's Web Recorder" command="cmd_jwr_onClickStatusIcon" />
+				<menuitem label="Open Jared's Web Recorder" command="cmd_jwr_onClickStatusIcon" />
 				<menuseparator/>
-				<menuitem label="Save" command="cmd_jwr_saveDatabase" />
-				<menuitem label="Save As" command="cmd_jwr_saveAsDatabase" />
-
+				<menuitem label="Start Record" command="cmd_jwr_start" />
+				<menuitem label="Stop Record" command="cmd_jwr_stop" />
+				<menuitem label="Clear" command="cmd_jwr_clear" />
+				<menuitem label="Save" command="cmd_jwr_saveData" />
+				<menuitem label="Save As" command="cmd_jwr_saveAsData" />
 			</menupopup>
 		</menu>
 	</menupopup>

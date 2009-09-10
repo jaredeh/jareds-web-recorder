@@ -1,19 +1,5 @@
 <?xml version="1.0"?>
 
-<window  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="Jared's Web Recorder">
-
+<overlay id="sql_overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://jwr/content/sqlite.js"/>
-	<hbox>
-		<vbox>
-			<label id="jwr_db_status"/>
-		</vbox>
-		<vbox>
-			<textbox id="jwr_db_item">
-			</textbox>
-		</vbox>
-		<vbox>
-			<textbox id="jwr_db_action">
-			</textbox>
-		</vbox>
-	</hbox>
-</window>
+</overlay>
