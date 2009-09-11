@@ -42,7 +42,7 @@ DatabaseHandler.prototype = {
 		return false;
 	},
 	
-	closeDatabase: function (callback)
+	closeDatabase: function ()
 	{
 		if (this.databaseConnection == null) {
 			alert("databaseConnection == null");
@@ -59,7 +59,7 @@ DatabaseHandler.prototype = {
 		if (this.databaseBusy()) {
 			if (this.busycount > 3) throw "database busy";
 			this.busycount += 1;
-			window.setTimeout('Database.closeDatabase("' + callback + '");', 300);
+			Database.closeDatabase();
 			return;
 		}
 		
@@ -70,7 +70,7 @@ DatabaseHandler.prototype = {
 		}
 		this.databaseConnection = null;
 		this.closecount = 0;
-		eval(callback);
+		JWR_SQL.doSaveDatabase();
 	},
 	
 	addToQueue: function (statement)
@@ -96,11 +96,11 @@ DatabaseHandler.prototype = {
 		this.addToQueue(statement);
 	},
 	
-	commitQueue: function (callback)
+	commitQueue: function ()
 	{
 		this.databaseConnection.executeAsync(this.statementQueue,this.statementQueue.length,{
 			handleResult: function(aResultSet) {
-				eval(callback);
+				JWR_SQL.copyData();
 			},
 			
 			handleError: function(aError) {
@@ -110,7 +110,7 @@ DatabaseHandler.prototype = {
 			handleCompletion: function(aReason) {
 				if (aReason != Components.interfaces.mozIStorageStatementCallback.REASON_FINISHED)
 					dump("Query canceled or aborted!");
-				eval(callback);
+				JWR_SQL.copyData();
 			}
 		});
 	},
@@ -118,7 +118,6 @@ DatabaseHandler.prototype = {
 	clearQueue: function ()
 	{
 		this.statementQueue = null;
-		dump("clearQueue: " + this.statementQueue + "\n");
 	},
 }
 

@@ -64,11 +64,9 @@ JWR_HttpFox_Interface.prototype =
 		
 		var val = this.RequestPos;
 		
-		dump("val: " + val + " rows: " + this.NumberRows + "\n");
-
 		this.RequestPos += 1;
 		
-		if (val == this.NumberRows) {
+		if (val >= this.NumberRows) {
 			return true;
 		}
 		HttpFox.RequestTree.setCurrent(val);

@@ -103,15 +103,15 @@ JWR_SQLite_Interface.prototype =
 			break;
 		case 2:
 			this.Chrome.DatabaseBar.update_status("Saving structure");
-			Database.commitQueue('JWR_SQL.doSaveDatabase();');
+			Database.commitQueue();
 			return;
 		case 3:
 			this.Chrome.DatabaseBar.update_status("Saving Data");
-			this.copyData('JWR_SQL.doSaveDatabase();');
+			this.copyData();
 			return;
 		case 4:
 			this.Chrome.DatabaseBar.update_status("Closing Database");
-			Database.closeDatabase('JWR_SQL.doSaveDatabase();');
+			Database.closeDatabase();
 			break;
 		case 5:
 			this.currentDatabase = null;
@@ -125,7 +125,7 @@ JWR_SQLite_Interface.prototype =
 		
 	},
 	
-	copyData: function(callback)
+	copyData: function()
 	{
 		this.copyDataState += 1;
 		
@@ -134,14 +134,14 @@ JWR_SQLite_Interface.prototype =
 		case 1:
 			if (JWR_HF.getNextRequest()) {
 				this.copyDataState = 0;
-				return eval(callback);
+				return JWR_SQL.doSaveDatabase();
 			}
 			var msg = (JWR_HF.RequestPos/JWR_HF.NumberRows)*100;
 			this.Chrome.DatabaseBar.update_progress(msg);
 			break;
 		case 2:
 			JWR_HF.getData();
-			window.setTimeout('JWR_SQL.copyData("' + callback + '");',100);
+			window.setTimeout('JWR_SQL.copyData()',100);
 			return;
 		case 3:
 			var data = JWR_HF.getColumns(HttpFox.RequestTree.getCurrent());
@@ -159,7 +159,7 @@ JWR_SQLite_Interface.prototype =
 			Database.dataInsert("requests",column_string,values_string);
 			break;
 		case 4:
-			Database.commitQueue('JWR_SQL.copyData("' + callback + '");');
+			Database.commitQueue();
 			return;
 		case 5:
 			Database.clearQueue();
@@ -167,11 +167,11 @@ JWR_SQLite_Interface.prototype =
 			break;
 		default:
 			this.copyDataState = 0;
-			eval(callback);
+			this.doSaveDatabase();
 			return;
 		}
 		
-		this.copyData(callback);
+		this.copyData();
 	},
 	
 	configureDatabase: function()
