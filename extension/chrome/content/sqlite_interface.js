@@ -141,7 +141,11 @@ JWR_SQLite_Interface.prototype =
 			break;
 		case 2:
 			JWR_HF.getData();
-			window.setTimeout('JWR_SQL.copyData()',100);
+			var event = { notify: function(timer) { JWR_SQL.copyData(); } }
+		 
+			// Now it is time to create the timer...  
+			var timer = Components.classes["@mozilla.org/timer;1"].createInstance(Components.interfaces.nsITimer);
+			timer.initWithCallback(event, 100, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
 			return;
 		case 3:
 			var data = JWR_HF.getColumns(HttpFox.RequestTree.getCurrent());

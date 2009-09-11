@@ -185,35 +185,6 @@ JWR_HttpFox_Interface.prototype =
 	
 }
 
-
-function JWR_Listen(callback)
-{
-	this.callback = callback;
-	this.data = "";
-}
-
-JWR_Listen.prototype =
-{
-	onStartRequest: function(request, context) {},
-	
-	onStopRequest: function(request, context, status) {
-		this.done = true;
-		context = this.data;
-		request.Content = context;
-		request.ContentStatus = status;
-		eval(this.callback);
-	},
-	
-	onDataAvailable: function(request, context, inStr, sourceOffset, count) {
-		var bstream = Components.classes["@mozilla.org/binaryinputstream;1"].createInstance(Components.interfaces.nsIBinaryInputStream);
-		bstream.setInputStream(inStr);
-	
-		var bytes = bstream.readBytes(bstream.available());
-		this.data += bytes;
-	},
-	
-};
-
 function JWR_ResponseLoaderFlagger() 
 {}
 JWR_ResponseLoaderFlagger.prototype =
