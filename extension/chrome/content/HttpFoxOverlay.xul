@@ -55,17 +55,17 @@
 						tooltiptext="Close" command="cmd_hf_close" align="right"/>
 			    </toolbar>
 				<toolbar id="jwr_toolbar" align="center" flex="0">
-					<toolbarbutton id="hf_TopBarButton_Save" label="Save" 
+					<button id="hf_TopBarButton_Save" label="Save" 
 						tooltiptext="Save Data" command="cmd_hf_saveData" />
 
-					<toolbarbutton id="hf_TopBarButton_SaveAs" label="SaveAs" 
+					<button id="hf_TopBarButton_SaveAs" label="SaveAs" 
 						tooltiptext="Save Data As ..." command="cmd_hf_saveAsData" />
 
 					<vbox>
-						<label id="jwr_db_status"/>
+						<textbox id="jwr_db_status"/>
 					</vbox>
 					<vbox>
-						<label id="jwr_db_progress"/>
+						<progressmeter id="jwr_db_progress"/>
 					</vbox>
 					<vbox>
 						<label id="jwr_db_file"/>

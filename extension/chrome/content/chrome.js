@@ -18,7 +18,6 @@ JWR_DoChromeHandler.prototype =
 	
 	chromeLoad: function(e)
 	{
-		this.DatabaseBar.update_status("Not Connected");
 	},
 
 	chromeUnload: function(e)

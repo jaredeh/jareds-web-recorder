@@ -16,19 +16,9 @@ JWR_SQLite_Interface.prototype =
 	
 	init: function()
 	{
-		JWR_listen(window, "load", JWR_hitch(this, "chromeLoad"));
-		JWR_listen(window, "unload", JWR_hitch(this, "chromeUnload"));
 		this.doSaveState = 0;
 		this.copyDataState = 0;
 		this.Chrome = new JWR_DoChromeHandler();
-	},
-	
-	chromeLoad: function(e)
-	{
-	},
-	
-	chromeUnload: function(e)
-	{
 	},
 	
 	openDatabase: function(file)
@@ -102,8 +92,6 @@ JWR_SQLite_Interface.prototype =
 	
 	doSaveDatabase: function()
 	{
-		dump("doSaveDatabase: " + this.doSaveState + "\n");
-		
 		var val = this.doSaveState;
 		this.doSaveState += 1;
 		
@@ -141,8 +129,6 @@ JWR_SQLite_Interface.prototype =
 	{
 		this.copyDataState += 1;
 		
-		dump("copyData: " + this.copyDataState + "\n");
-		
 		switch(this.copyDataState)
 		{
 		case 1:
@@ -150,12 +136,10 @@ JWR_SQLite_Interface.prototype =
 				this.copyDataState = 0;
 				return eval(callback);
 			}
-			var msg = (JWR_HF.RequestPos/JWR_HF.NumberRows)*100 + "% done, row " + JWR_HF.RequestPos +  " of " + JWR_HF.NumberRows;
+			var msg = (JWR_HF.RequestPos/JWR_HF.NumberRows)*100;
 			this.Chrome.DatabaseBar.update_progress(msg);
 			break;
 		case 2:
-//			JWR_HF.doLoad(this.currentRequest,'JWR_SQL.copyData("' + callback + '");');
-//			return;
 			JWR_HF.getData();
 			window.setTimeout('JWR_SQL.copyData("' + callback + '");',100);
 			return;
@@ -172,8 +156,6 @@ JWR_SQLite_Interface.prototype =
 				column_string += '"' + JWR_column_names[i] + '"';
 				values_string += '"' + data[JWR_column_names[i]] + '"';
 			}
-//			alert('column_string:' + column_string);
-//			alert('values_string:' + values_string);
 			Database.dataInsert("requests",column_string,values_string);
 			break;
 		case 4:

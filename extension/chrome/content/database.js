@@ -67,7 +67,6 @@ DatabaseHandler.prototype = {
 			var db = this.databaseConnection;
 			db.close();
 		} catch (e) {
-			//alert(e);
 		}
 		this.databaseConnection = null;
 		this.closecount = 0;
@@ -93,11 +92,8 @@ DatabaseHandler.prototype = {
 	dataInsert: function (name,columns,values)
 	{
 		var query = "INSERT INTO " + name + " ("  + columns + ") VALUES (" + values + ");";
-		//var query = "INSERT INTO " + name + " DEFAULT VALUES;";
-//		alert("dataInsert:" + query);
 		var statement = this.databaseConnection.createStatement(query);
 		this.addToQueue(statement);
-		dump("dataInsert\n");
 	},
 	
 	commitQueue: function (callback)
@@ -108,12 +104,12 @@ DatabaseHandler.prototype = {
 			},
 			
 			handleError: function(aError) {
-				print("Error: " + aError.message);
+				dump("Error: " + aError.message);
 			},
 			
 			handleCompletion: function(aReason) {
 				if (aReason != Components.interfaces.mozIStorageStatementCallback.REASON_FINISHED)
-					print("Query canceled or aborted!");
+					dump("Query canceled or aborted!");
 				eval(callback);
 			}
 		});
