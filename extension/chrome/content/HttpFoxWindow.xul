@@ -8,7 +8,7 @@
 
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="hf_Window"
-        title="HttpFox"
+        title="Jared's Web Recorder"
         persist="screenX,screenY,width,height,sizemode"
         onload="">
 
