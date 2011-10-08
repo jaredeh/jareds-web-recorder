@@ -45,7 +45,7 @@
   <xsl:output method="xml"/>
 
   <xsl:template match="/">
-    <link href="chrome://jwr/content/XMLPrettyPrint.css" type="text/css" rel="stylesheet"/>
+    <link href="chrome://httpfox/content/XMLPrettyPrint.css" type="text/css" rel="stylesheet"/>
     <link title="Monospace" href="chrome://global/content/xml/XMLMonoPrint.css" type="text/css" rel="alternate stylesheet"/>
 	<script>
 		function x(e) 

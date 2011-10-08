@@ -1,30 +1,23 @@
 <?xml version="1.0"?> 
 
-<?xul-overlay href="chrome://jwr/content/HttpFoxOverlay.xul"?>
+<?xul-overlay href="chrome://httpfox/content/HttpFoxOverlay.xul"?>
 
 <?xml-stylesheet href="chrome://global/skin/global.css"?>
-<?xml-stylesheet href="chrome://jwr/skin/HttpFox.css"
+<?xml-stylesheet href="chrome://HttpFox/skin/HttpFox.css"
                  type="text/css"?>
-
+<!DOCTYPE window SYSTEM "chrome://httpfox/locale/HttpFox.dtd">  
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="hf_Window"
-        title="Jared's Web Recorder"
+        title="&window.title;"
         persist="screenX,screenY,width,height,sizemode"
         onload="">
 
 	<commandset id="mainCommandSet" />
 	
 	<!-- scripts start -->
-	<script type="application/x-javascript" src="chrome://jwr/content/HttpFox.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/HttpFoxTree.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/Utils.js"/>
-	
-	<script type="application/x-javascript" src="chrome://jwr/content/util.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/chrome.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/jwr.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/hf_interface.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/database.js"/>
-	<script type="application/x-javascript" src="chrome://jwr/content/sqlite_interface.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/HttpFox.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/HttpFoxTree.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/Utils.js"/>
 	<!-- scripts end -->
 
 	<vbox id="appcontent" flex="1"> <!-- overlay firefox content window -->

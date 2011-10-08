@@ -35,6 +35,11 @@ const CLASS_NAME = "HttpFox Service";
 // textual unique identifier
 const CONTRACT_ID = "@decoded.net/httpfox;1";
 
+// import utils
+try {
+	Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+}
+catch(e) {}
 
 /***********************************************************
 class definition
@@ -49,6 +54,10 @@ function HttpFoxService()
 // class definition
 HttpFoxService.prototype = 
 {
+	classID: CLASS_ID,
+	classDescription: CLASS_NAME,
+	contractID: CONTRACT_ID,
+
 	// Controller/Interface list
 	Controllers: null,
 	
@@ -605,7 +614,7 @@ HttpFoxService.prototype.HttpFoxEventSourceType =
 	WEBPROGRESS_ON_PROGRESS_CHANGED: 8,
 	WEBPROGRESS_ON_LOCATION_CHANGED: 9,
 	SCANNED_COMPLETE: 10
-}; 
+};
 
 HttpFoxService.prototype.HttpFoxStatusCodeType =
 {
@@ -619,6 +628,8 @@ HttpFoxService.prototype.HttpFoxStatusCodeType =
 	LOADFLAGS_CHANNEL: 7,
 	LOADFLAGS_CACHING: 8
 };
+
+
 
 function HttpFoxPreferences() 
 {
@@ -647,7 +658,7 @@ HttpFoxPreferences.prototype =
 		// Register to receive notifications of preference changes
 		this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
 			.getService(Components.interfaces.nsIPrefService)
-			.getBranch("extensions.jwr.");
+			.getBranch("extensions.httpfox.");
 		this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		this.prefs.addObserver("", this, false);
 	
@@ -1724,9 +1735,9 @@ HttpFoxRequestEvent.prototype =
 		
 		// get properties from httpchannel/request object
 		this.Status = this.HttpChannel.status ? this.HttpChannel.status : null;
-		this.Url = this.HttpChannel.URI ? this.HttpChannel.URI.asciiSpec : null;
+		this.Url = this.HttpChannel.URI ? this.getFinalUrl(this.HttpChannel.URI.asciiSpec) : null;
 		this.URIScheme = this.HttpChannel.URI ? this.HttpChannel.URI.scheme : null;
-		this.URIPath = this.HttpChannel.URI ? this.HttpChannel.URI.path : null;
+		this.URIPath = this.HttpChannel.URI ? this.getFinalUrl(this.HttpChannel.URI.path) : null;
 		this.Name = this.HttpChannel.name ? this.HttpChannel.name : null;
 		this.RequestMethod = this.HttpChannel.requestMethod ? this.HttpChannel.requestMethod : null;
 		this.IsPending = this.HttpChannel.isPending();
@@ -1805,6 +1816,11 @@ HttpFoxRequestEvent.prototype =
 		}
 	},
 	
+	getFinalUrl: function(channelUri)
+	{
+		return channelUri.split("#")[0];
+	},
+
 	getRequestProtocolVersion: function()
 	{
 		try 
@@ -2000,7 +2016,7 @@ HttpFoxRequestEvent.prototype =
 				var cName = dataSections[0].slice(0, dataSections[0].indexOf("="));
 				var cValue = dataSections[0].slice(cName.length + 1);
 				var cookieData = new Array();
-				cookieData["name"] = cName;
+				cookieData["name"] = utils.trim(cName, 'left');
 				cookieData["value"] = cValue;
 				
 				// other infos
@@ -2720,59 +2736,59 @@ HttpFoxPostDataHandler.prototype =
 				{
 					try 
 					{
-							
+						var re;
 						var mimePartData = new Object();
 						var rawMimePartParts = new Array();
 						rawMimePartParts = rawMimeParts[i].split(ws + ws);	
 						
 						var varname = null;
-						RegExp.lastIndex = 0;
-						if (rawMimePartParts[0].match(/\bname="([^"]+)"/i)) 
+						re = new RegExp('\bname="([^"]+)"', "i");
+						if (rawMimePartParts[0].match(re)) 
 						{
-							varname = RegExp.$1;
+							varname = re.$1;
 						}
 						if (!varname) 
 						{
-							RegExp.lastIndex = 0;
-							if(rawMimePartParts[0].match(/\bname=([^\s:;]+)/i)) 
+							re = new RegExp('\bname=([^\s:;]+)', "i");
+							if(rawMimePartParts[0].match(re)) 
 							{
-								varname = RegExp.$1;
+								varname = re.$1;
 							}
 						}
 						
 						if (varname != null)
 						{
 							var filename = null;
-							RegExp.lastIndex = 0;
-							if (rawMimePartParts[0].match(/\b(filename="[^"]*")/i)) 
+							re = new RegExp('\b(filename="[^"]*")', "i");
+							if (rawMimePartParts[0].match(re)) 
 							{
-								filename = RegExp.$1;
+								filename = re.$1;
 							}
 							if (!filename) 
 							{
-								RegExp.lastIndex = 0;
-								if(rawMimePartParts[0].match(/\b(filename=[^\s:;]+)/i)) 
+								re = new RegExp('\b(filename=[^\s:;]+)', "i");
+								if(rawMimePartParts[0].match(re)) 
 								{
-									filename = RegExp.$1;
+									filename = re.$1;
 								}
 							}
 			
 							var ctype = null;
-							RegExp.lastIndex = 0;
-							if (rawMimePartParts[0].match(/\b(Content-type:\s*"[^"]+)"/i)) 
+							re = new RegExp('\b(Content-type:\s*"[^"]+)"', "i");
+							if (rawMimePartParts[0].match(re)) 
 							{
-								ctype = RegExp.$1;
+								ctype = re.$1;
 							}
 							if (!ctype) 
 							{
-								RegExp.lastIndex = 0;
-								if (rawMimePartParts[0].match(/\b(Content-Type:\s*[^\s:;]+)/i)) {
-									ctype = RegExp.$1;
+								re = new RegExp('\b(Content-Type:\s*[^\s:;]+)', "i");
+								if (rawMimePartParts[0].match(re)) {
+									ctype = re.$1;
 								}
 							}
 							
 							// value
-							var value = rawMimePartParts[1].trim();
+							var value = utils.trim(rawMimePartParts[1]);
 							
 							mimePartData["varname"] = varname;
 							mimePartData["filename"] = filename;
@@ -2878,25 +2894,10 @@ HttpFoxRequestLogData.prototype =
 		this.HasCacheInfo = request.HasCacheInfo;
 	}
 }
-// ************************************************************************************************
 
+// ************************************************************************************************
 // UTIL FUNCTIONS
-
 // ************************************************************************************************
-
-String.prototype.trim = function(x) 
-{
-	if (x=='left')
-		return this.replace(/^\s*/,'');
-	if (x=='right')
-		return this.replace(/\s*$/,'');
-	if (x=='normalize')
-		return this.replace(/\s{2,}/g,' ').trim();
-		
-	return this.trim('left').trim('right');
-}
-// ************************************************************************************************
-
 var utils = {
 	LOAD_FROM_CACHE: Components.interfaces.nsIRequest.LOAD_FROM_CACHE,
 	VALIDATE_NEVER: Components.interfaces.nsIRequest.VALIDATE_NEVER,
@@ -2904,6 +2905,24 @@ var utils = {
 	LOAD_BYPASS_LOCAL_CACHE_IF_BUSY: Components.interfaces.nsICachingChannel.LOAD_BYPASS_LOCAL_CACHE_IF_BUSY,
 	LOAD_ONLY_FROM_CACHE: Components.interfaces.nsICachingChannel.LOAD_ONLY_FROM_CACHE,
 	NS_BINDING_ABORTED: 0x804b0002,
+
+    trim: function(value, type)
+    {
+    	if (type == 'left') 
+        {
+            return value.replace(/^\s*/, '');
+        }
+	    if (type == 'right') 
+        {
+            return value.replace(/\s*$/, '');
+        }
+	    if (type == 'normalize') 
+        {
+            return trim(value.replace(/\s{2,}/g, ' '));
+        }
+
+	    return trim(trim(value, 'left'), 'right');
+    },
 
 	// Utility function, dump an object by reflexion up to niv level
 	dumpall: function(name, obj, niv) 
@@ -3534,6 +3553,7 @@ var HttpFoxServiceModule =
 	}
 };
 
+// FF 2
 /***********************************************************
 module initialization
 
@@ -3543,4 +3563,13 @@ is called.
 function NSGetModule(aCompMgr, aFileSpec) 
 {
 	return HttpFoxServiceModule;
+}
+
+// FF 4+
+if (typeof XPCOMUtils != "undefined")
+{
+	if (XPCOMUtils.generateNSGetFactory) {
+		// FF 4+
+		var NSGetFactory = XPCOMUtils.generateNSGetFactory([HttpFoxService]);	
+	}
 }
