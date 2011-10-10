@@ -10,7 +10,19 @@
 	<script type="application/x-javascript" src="chrome://httpfox/content/HttpFox.js"/>
 	<script type="application/x-javascript" src="chrome://httpfox/content/HttpFoxTree.js"/>
 	<script type="application/x-javascript" src="chrome://httpfox/content/Utils.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/jwr_chrome.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/jwr_util.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/hf_interface.js"/>
+	<script type="application/x-javascript" src="chrome://httpfox/content/jwr.js"/>
 	<!-- scripts end -->
+	
+	<commandset id="mainCommandSet">
+		<command id="cmd_jwr_start" oncommand="JWR.startRecording();"/>
+		<command id="cmd_jwr_stop" oncommand="JWR.stopRecording();"/>
+		<command id="cmd_jwr_clear" oncommand="JWR.clearBuffers();"/>
+		<command id="cmd_jwr_saveData" oncommand="JWR.doSaveData();"/>
+		<command id="cmd_jwr_saveAsData" oncommand="JWR.doSaveAsData();"/>
+	</commandset>
 	
 	<statusbar id="status-bar"> <!-- overlay firefox statusbar -->
 		<statusbarpanel id="hf_Status" 
@@ -23,6 +35,11 @@
 			<menuitem label="&browseroverlay.statusbar.menu.detach.label;" 
 				command="cmd_hf_detach"
 				image="chrome://httpfox/skin/application_double.png" />
+			<menuitem label="Start Record" command="cmd_jwr_start" />
+			<menuitem label="Stop Record" command="cmd_jwr_stop" />
+			<menuitem label="Clear" command="cmd_jwr_clear" />
+			<menuitem label="Save" command="cmd_jwr_saveData" />
+			<menuitem label="Save As" command="cmd_jwr_saveAsData" />
 			<menuseparator/>
 			<menuitem label="&browseroverlay.statusbar.menu.options.label;" 
 				oncommand="HttpFox.OpenOptions();"  />
